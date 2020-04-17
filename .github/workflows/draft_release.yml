@@ -15,8 +15,8 @@ jobs:
       - name: Changelog
         id: changelog
         run: |
-          changlelog=$(git log)
-          echo $changelog
+          changlelog="$(git log)"
+          echo "$changelog"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
