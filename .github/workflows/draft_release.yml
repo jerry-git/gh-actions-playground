@@ -12,12 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-#      - run: |
-#          git fetch --prune --unshallow
+      - run: |
+          git fetch --prune --unshallow
       - shell: bash
         id: changelog
         run: |
-          changelog=$(git log)
+          changelog=$(git log --first-parent --pretty=format:"% -%d  %s %b (%cr) (%an)" `git tag --sort=-committerdate | head -1`...`git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}'`)
           echo $changelog
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
@@ -44,6 +44,7 @@ jobs:
           SLACK_MESSAGE: |
             Draft release: ${{ steps.draft_release.outputs.html_url }}
 
+            Changelog:
             ${{ steps.changelog.outputs.changelog }}
           SLACK_TITLE: New Production release incoming!
           SLACK_USERNAME: release-bot
