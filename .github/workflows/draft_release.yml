@@ -15,7 +15,12 @@ jobs:
       - name: Changelog
         id: changelog
         run: |
-          echo "##[set-output name=changelog;]$(git log)"
+          changlelog=$(git log)
+          echo $changelog
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
+          echo "::set-output name=changelog::$changelog"
       - name: Create draft release
         id: create_draft_release
         uses: actions/create-release@v1
