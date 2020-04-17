@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow
+#      - run: |
+#          git fetch --prune --unshallow
       - shell: bash
         id: changelog
         run: |
@@ -35,5 +35,15 @@ jobs:
             ${{ steps.changelog.outputs.changelog }}
           draft: true
           prerelease: false
+
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2.0.0
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: integration_tests
+          SLACK_ICON_EMOJI: ':rocket:'
+          SLACK_MESSAGE: ${{ steps.changelog.outputs.changelog }}
+          SLACK_TITLE: New Production release incoming!
+          SLACK_USERNAME: release-bot
 
 
