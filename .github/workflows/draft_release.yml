@@ -12,13 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - run: |
+      - name: Fetch git history
+        run: |
           git fetch --prune --unshallow
-      - shell: bash
+      - name: Create changelog
+        shell: bash
         id: changelog
         run: |
-          changelog=$(git log --first-parent --pretty=format:"% -%d  %s %b (%cr) (%an)" `git tag --sort=-committerdate | head -1`...`git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}'`)
-          echo $changelog
+          changelog=$(git log --first-parent --pretty=format:"-%d %s: %b (%cr) (%an)" `git tag --sort=-committerdate | head -1`...`git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}'`)
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
@@ -35,7 +36,8 @@ jobs:
             ${{ steps.changelog.outputs.changelog }}
           draft: true
           prerelease: false
-      - name: Slack Notification
+      - name: Send slack notification
+        # pin this after >2.0.1 is released
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
