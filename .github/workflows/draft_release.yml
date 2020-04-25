@@ -3,7 +3,7 @@ name: Draft release
 on:
   push:
     tags:
-      - '*'
+      - 'foo-*'
 
 jobs:
   create-draft-release:
