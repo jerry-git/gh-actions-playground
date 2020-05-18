@@ -37,8 +37,7 @@ jobs:
           draft: true
           prerelease: false
       - name: Send slack notification
-        # pin this after >2.0.1 is released
-        uses: rtCamp/action-slack-notify@master
+        uses: rtCamp/action-slack-notify@2.0.2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: integration_tests
