@@ -15,7 +15,7 @@ jobs:
       - name: Fetch git history
         run: |
           git fetch --prune --unshallow
-      - name: Get tags
+      - name: Parse tags
         shell: bash
         id: tags
         run: |
@@ -28,6 +28,8 @@ jobs:
         id: changelog
         run: |
           changelog=$(git log --first-parent --pretty=format:"-%d %s: %b (%cr) (%an)" ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }})
+          compare="https://github.com/jerry-git/gh-actions-playground/compare/${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }}"
+          changelog="sha: ${{ github.sha }}\r\n\r\nfull diff: ${{ compare }}\r\n\r\n${{ changelog }}"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
@@ -39,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} - ${{github.sha}}
+          release_name: Release ${{ github.ref }} - ${{ github.sha }}
           body: |
             ${{ steps.changelog.outputs.changelog }}
           draft: true
