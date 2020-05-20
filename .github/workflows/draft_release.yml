@@ -28,7 +28,7 @@ jobs:
         id: changelog
         run: |
           changelog=$(git log --first-parent --pretty=format:"-%d %s: %b (%cr) (%an)" ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }})
-          compare="https://github.com/jerry-git/gh-actions-playground/compare/${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }}"
+          compare="https://github.com/${{ github.repository }}/compare/${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }}"
           changelog="sha: ${{ github.sha }}"$'\n\n'"full diff:${compare}"$'\n\n'"${changelog}"
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
