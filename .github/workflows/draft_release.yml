@@ -3,7 +3,7 @@ name: Draft release
 on:
   push:
     tags:
-      - 'foo-*'
+      - 'production*'
 
 jobs:
   create-draft-release:
@@ -15,11 +15,19 @@ jobs:
       - name: Fetch git history
         run: |
           git fetch --prune --unshallow
+      - name: Get tags
+        shell: bash
+        id: tags
+        run: |
+          current_tag=$(git tag --sort=-committerdate -l "production*" | head -1)
+          previous_tag=$(git tag --sort=-committerdate -l "production*" | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
+          echo "::set-output name=current_tag::$current_tag"
+          echo "::set-output name=previous_tag::$previous_tag"
       - name: Create changelog
         shell: bash
         id: changelog
         run: |
-          changelog=$(git log --first-parent --pretty=format:"-%d %s: %b (%cr) (%an)" `git tag --sort=-committerdate | head -1`...`git tag --sort=-committerdate | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}'`)
+          changelog=$(git log --first-parent --pretty=format:"-%d %s: %b (%cr) (%an)" ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }})
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
@@ -31,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ github.ref }} - ${{github.sha}}
           body: |
             ${{ steps.changelog.outputs.changelog }}
           draft: true
