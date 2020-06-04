@@ -19,8 +19,8 @@ jobs:
         shell: bash
         id: tags
         run: |
-          current_tag=$(git tag --sort=-committerdate -l "production*" | head -1)
-          previous_tag=$(git tag --sort=-committerdate -l "production*" | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
+          current_tag=$(git tag --sort=-creatordate -l "production*" | head -1)
+          previous_tag=$(git tag --sort=-creatordate -l "production*" | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
           echo "::set-output name=current_tag::$current_tag"
           echo "::set-output name=previous_tag::$previous_tag"
       - name: Create changelog
