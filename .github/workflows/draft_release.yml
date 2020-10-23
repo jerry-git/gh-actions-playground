@@ -55,6 +55,7 @@ jobs:
           MSG_MINIMAL: true
           SLACK_MESSAGE: |
             Draft release: ${{ steps.draft_release.outputs.html_url }}
+            <${{ steps.draft_release.outputs.html_url }}|Draft release>
 
             ${{ steps.changelog.outputs.changelog }}
           SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
