@@ -55,6 +55,8 @@ jobs:
           MSG_MINIMAL: true
           SLACK_FOOTER:
           SLACK_MESSAGE: |
+            <${{ steps.draft_release.outputs.html_url }}|Draft release>
+
             ${{ steps.changelog.outputs.changelog }}
-          SLACK_TITLE: New release ${{ steps.tags.outputs.current_tag }} incoming (<${{ steps.draft_release.outputs.html_url }}|draft>)!
+          SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
           SLACK_USERNAME: release-bot
