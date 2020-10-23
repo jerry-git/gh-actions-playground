@@ -57,7 +57,7 @@ jobs:
             Draft release: ${{ steps.draft_release.outputs.html_url }}
 
             ${{ steps.changelog.outputs.changelog }}
-          SLACK_TITLE: New Production release incoming!
+          SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
           SLACK_USERNAME: release-bot
 
 
