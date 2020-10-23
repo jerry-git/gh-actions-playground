@@ -55,7 +55,6 @@ jobs:
           MSG_MINIMAL: true
           SLACK_FOOTER:
           SLACK_MESSAGE: |
-            Draft release: ${{ steps.draft_release.outputs.html_url }}
             <${{ steps.draft_release.outputs.html_url }}|Draft release>
 
             ${{ steps.changelog.outputs.changelog }}
