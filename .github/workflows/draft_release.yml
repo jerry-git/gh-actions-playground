@@ -53,6 +53,7 @@ jobs:
           SLACK_CHANNEL: integration_tests
           SLACK_ICON_EMOJI: ':ship:'
           MSG_MINIMAL: true
+          SLACK_FOOTER:
           SLACK_MESSAGE: |
             Draft release: ${{ steps.draft_release.outputs.html_url }}
             <${{ steps.draft_release.outputs.html_url }}|Draft release>
@@ -60,5 +61,3 @@ jobs:
             ${{ steps.changelog.outputs.changelog }}
           SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
           SLACK_USERNAME: release-bot
-
-
