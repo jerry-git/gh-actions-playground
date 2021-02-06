@@ -37,7 +37,7 @@ jobs:
           changelog=$(git shortlog --first-parent --pretty=format:"- %s: %b (%cr)%d" ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }} | sed -E "s/Merge pull request | from [^:]+//g")
           compare="https://github.com/${{ github.repository }}/compare/${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }}"
           changelog="sha: ${{ github.sha }}"$'\n\n'"full diff:${compare}"$'\n\n'"${changelog}"
-          if [ "$changes_in_foo" ]; then
+          if [ "${{ steps.foo.outputs.changes_in_foo }}" ]; then
             changelog="! CHANGES IN FOO !"$'\n\n'"${changelog}"
           fi
           changelog="${changelog//'%'/'%25'}"
