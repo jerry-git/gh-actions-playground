@@ -27,7 +27,7 @@ jobs:
         shell: bash
         id: foo
         run: |
-          changes_in_foo=$(git diff ${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }} --exit-code foo_dir)
+          changes_in_foo=$(git diff ${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }} foo_dir)
 #          echo "CHANGES: $changes_in_foo"
 #          echo "::set-output name=changes_in_foo::$changes_in_foo"
       - name: Create changelog
