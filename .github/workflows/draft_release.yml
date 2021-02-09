@@ -26,7 +26,7 @@ jobs:
       - name: Check tags
         shell: bash
         run: |
-          if [ $(git tag -l ${{ steps.tags.outputs.previous_tag }}) ]; then
+          if ! [ $(git tag --points-at ${{ steps.tags.outputs.current_tag }} | grep foo-tag) ]; then
             git tag -d ${{ steps.tags.outputs.current_tag }}
             git push origin :${{ steps.tags.outputs.current_tag }}
             echo "Getting out"
