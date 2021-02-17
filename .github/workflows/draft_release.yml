@@ -26,6 +26,15 @@ jobs:
       - name: Check tags
         shell: bash
         run: |
+          if ! [[ $(git tag --points-at $"$GITHUB_SHA" | grep foo-tag) ]]; then
+            git tag -d ${{ steps.tags.outputs.current_tag }}
+            git push origin :${{ steps.tags.outputs.current_tag }}
+            echo "Getting out"
+            exit 1
+          fi
+      - name: Check tags 2
+        shell: bash
+        run: |
           if ! [[ $(git tag --points-at ${{ steps.tags.outputs.current_tag }} | grep foo-tag) ]]; then
             git tag -d ${{ steps.tags.outputs.current_tag }}
             git push origin :${{ steps.tags.outputs.current_tag }}
