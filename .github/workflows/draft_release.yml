@@ -23,13 +23,6 @@ jobs:
           previous_tag=$(git tag --sort=-creatordate -l "production*" | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
           echo "::set-output name=current_tag::$current_tag"
           echo "::set-output name=previous_tag::$previous_tag"
-      - name: FOO
-        shell: bash
-        run: |
-          if ! [ $(git tag --points-at "$GITHUB_SHA" | grep foo-bar-baz) ]; then
-            echo "bad commit"
-            exit 1
-          fi
       - name: Check tags
         shell: bash
         run: |
