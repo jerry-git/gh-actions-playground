@@ -53,8 +53,9 @@ jobs:
         id: changelog
         run: |
           changelog=$(git shortlog --first-parent --pretty=format:"- %s: %b (%cr)%d" ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }} | sed -E "s/Merge pull request | from [^:]+//g")
+          slack_names=$(join -t , -1 1 -2 1 -o 2.2 <(git log --format='%ae' ${{ steps.tags.outputs.current_tag }}...${{ steps.tags.outputs.previous_tag }} | sort | uniq) <(cat ./.github/slack.csv | sort) | awk '{$1=$1};1' | awk 'ORS=", "' | sed 's/, $//')
           compare="https://github.com/${{ github.repository }}/compare/${{ steps.tags.outputs.previous_tag }}...${{ steps.tags.outputs.current_tag }}"
-          changelog="sha: ${{ github.sha }}"$'\n\n'"full diff:${compare}"$'\n\n'"${changelog}"
+          changelog="sha: ${{ github.sha }}"$'\n\n'"${slack_names}"$'\n\n'"full diff:${compare}"$'\n\n'"${changelog}"
           if [ "${{ steps.foo.outputs.changes_in_foo }}" ]; then
             changelog="! CHANGES IN FOO !"$'\n\n'"${changelog}"
           fi
