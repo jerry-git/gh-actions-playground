@@ -23,24 +23,24 @@ jobs:
           previous_tag=$(git tag --sort=-creatordate -l "production*" | head -2 | awk '{split($0, tags, "\n")} END {print tags[1]}')
           echo "::set-output name=current_tag::$current_tag"
           echo "::set-output name=previous_tag::$previous_tag"
-      - name: Check tags
-        shell: bash
-        run: |
-          if ! [[ $(git tag --points-at $"$GITHUB_SHA" | grep foo-tag) ]]; then
-            git tag -d ${{ steps.tags.outputs.current_tag }}
-            git push origin :${{ steps.tags.outputs.current_tag }}
-            echo "Getting out"
-            exit 1
-          fi
-      - name: Check tags 2
-        shell: bash
-        run: |
-          if ! [[ $(git tag --points-at ${{ steps.tags.outputs.current_tag }} | grep foo-tag) ]]; then
-            git tag -d ${{ steps.tags.outputs.current_tag }}
-            git push origin :${{ steps.tags.outputs.current_tag }}
-            echo "Getting out"
-            exit 1
-          fi
+#      - name: Check tags
+#        shell: bash
+#        run: |
+#          if ! [[ $(git tag --points-at $"$GITHUB_SHA" | grep foo-tag) ]]; then
+#            git tag -d ${{ steps.tags.outputs.current_tag }}
+#            git push origin :${{ steps.tags.outputs.current_tag }}
+#            echo "Getting out"
+#            exit 1
+#          fi
+#      - name: Check tags 2
+#        shell: bash
+#        run: |
+#          if ! [[ $(git tag --points-at ${{ steps.tags.outputs.current_tag }} | grep foo-tag) ]]; then
+#            git tag -d ${{ steps.tags.outputs.current_tag }}
+#            git push origin :${{ steps.tags.outputs.current_tag }}
+#            echo "Getting out"
+#            exit 1
+#          fi
       - name: Check changes in foo
         shell: bash
         id: foo
