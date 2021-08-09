@@ -25,6 +25,8 @@ jobs:
           echo "::set-output name=previous_tag::$previous_tag"
           git show "$current_tag"
           git show "$previous_tag"
+          git cat-file -t "$current_tag"
+          git cat-file -t "$previous_tag"
 #      - name: Check tags
 #        shell: bash
 #        run: |
