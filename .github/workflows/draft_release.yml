@@ -24,6 +24,7 @@ jobs:
           echo "::set-output name=current_tag::$current_tag"
           echo "::set-output name=previous_tag::$previous_tag"
           git show "$current_tag"
+          git show "$previous_tag"
 #      - name: Check tags
 #        shell: bash
 #        run: |
