@@ -1,0 +1,15 @@
+name: Manually triggered workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_1:
+        description: 'Gimme legit string'
+        required: true
+
+jobs:
+  try-manual-input:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "You gave ${{ github.event.inputs.input1 }}!"
