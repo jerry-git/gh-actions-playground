@@ -18,3 +18,4 @@ jobs:
       - run: |
           python --version
           which pip
+      - run: pip install poetry
