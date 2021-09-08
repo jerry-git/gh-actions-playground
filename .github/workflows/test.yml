@@ -9,14 +9,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu-latest
+      image: ubuntu:latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
-      - run: |
-          python --version
-          which pip
-          python -m pip --version
-          python -m pip install -U pip
+      - run: python -m pip install request
