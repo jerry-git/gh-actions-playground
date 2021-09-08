@@ -18,5 +18,5 @@ jobs:
       - run: |
           python --version
           which pip
-          pip --version
-          pip install poetry
+          python -m pip --version
+          python -m pip install poetry
