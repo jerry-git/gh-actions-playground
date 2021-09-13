@@ -20,4 +20,4 @@ jobs:
           apt-get install -y python-openssl
       - run: |
           python --version
-          python -m pip install request
+          python -m pip install requests
