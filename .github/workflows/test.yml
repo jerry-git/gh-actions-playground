@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.8'
       - run: |
-          sudo apt-get install -y python-openssl
+          apt-get install -y python-openssl
       - run: |
           python --version
           python -m pip install request
