@@ -12,6 +12,7 @@ jobs:
       image: ubuntu:latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FOO: "BAR"
     steps:
       - run: |
           apt-get update -y
@@ -31,12 +32,16 @@ jobs:
 #      - run: |
 #          git tag foo1
 #          git push origin foo1
-      - uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ env.GITHUB_TOKEN }}
-          commit-message: >-
-            Foo commit
-          title: "Dummy title"
-          body: "Dummy body"
-          branch: my-branch
-          delete-branch: true
+      - run: |
+          echo ${{ env.FOO }}
+          echo ${{ env.GITHUB_TOKEN }}
+          echo ${{ secrets.GITHUB_TOKEN }}
+#      - uses: peter-evans/create-pull-request@v3
+#        with:
+#          token: ${{ env.GITHUB_TOKEN }}
+#          commit-message: >-
+#            Foo commit
+#          title: "Dummy title"
+#          body: "Dummy body"
+#          branch: my-branch
+#          delete-branch: true
