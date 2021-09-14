@@ -22,10 +22,19 @@ jobs:
           python --version
           python -m pip install requests
       - run: echo "foo" >> dummy
-      - uses: EndBug/add-and-commit@v7
+#      - uses: EndBug/add-and-commit@v7
+#        with:
+#          add: 'dummy'
+#          message: 'Foo commit'
+#      - run: |
+#          git tag foo1
+#          git push origin foo1
+      - uses: peter-evans/create-pull-request@v3
         with:
-          add: 'dummy'
-          message: 'Foo commit'
-      - run: |
-          git tag foo1
-          git push origin foo1
+          token: ${{ env.GITHUB_TOKEN }}
+          commit-message: >-
+            Foo commit
+          title: "Dummy title"
+          body: "Dummy body"
+          branch: my-branch
+          delete-branch: true
