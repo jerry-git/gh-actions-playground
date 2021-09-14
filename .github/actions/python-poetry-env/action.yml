@@ -14,7 +14,13 @@ runs:
 #      with:
 #        python-version: ${{inputs.python_version}}
     - name: Install Python
-      run: apt-get install python${{inputs.python_version}}
+      run: |
+        apt-get install python${{inputs.python_version}} python${{inputs.python_version}}-dev python${{inputs.python_version}}-distutils
+      shell: bash
+    - name: Debu
+      run: |
+        which python
+        which python3
       shell: bash
     - name: Install poetry
       run: python -m pip install poetry
