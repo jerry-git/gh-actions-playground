@@ -22,7 +22,6 @@ jobs:
       - run: |
           python --version
           python -m pip install requests
-          pip install requests
 #      - run: echo "foo" >> dummy
 #      - uses: EndBug/add-and-commit@v7
 #        with:
