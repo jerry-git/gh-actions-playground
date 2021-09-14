@@ -15,6 +15,10 @@ runs:
 #        python-version: ${{inputs.python_version}}
     - name: Install Python
       run: |
+        echo ${{ inputs.python_version }}
+        echo ${{inputs.python_version}}
+        echo FOO${{ inputs.python_version }}
+        echo FOO${{inputs.python_version}}
         apt-get install python${{inputs.python_version}} python${{inputs.python_version}}-dev python${{inputs.python_version}}-distutils
       shell: bash
     - name: Debu
