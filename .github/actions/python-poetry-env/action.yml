@@ -10,17 +10,17 @@ outputs: {}
 runs:
   using: 'composite'
   steps:
-#    - uses: actions/setup-python@v2
-#      with:
-#        python-version: ${{inputs.python_version}}
-    - name: Install Python
-      run: |
-        echo ${{ inputs.python_version }}
-        echo ${{inputs.python_version}}
-        echo FOO${{ inputs.python_version }}
-        echo FOO${{inputs.python_version}}
-        apt-get install python${{inputs.python_version}} python${{inputs.python_version}}-dev python${{inputs.python_version}}-distutils
-      shell: bash
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{inputs.python-version}}
+#    - name: Install Python
+#      run: |
+#        echo ${{ inputs.python-version }}
+#        echo ${{inputs.python-version}}
+#        echo FOO${{ inputs.python-version }}
+#        echo FOO${{inputs.python-version}}
+#        apt-get install python${{inputs.python-version}}
+#      shell: bash
     - name: Debu
       run: |
         which python
