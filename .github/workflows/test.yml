@@ -23,9 +23,9 @@ jobs:
           python -m pip install requests
       - run: echo "foo" >> dummy
       - uses: EndBug/add-and-commit@v7
-          with:
-            add: 'dummy'
-            message: 'Foo commit'
+        with:
+          add: 'dummy'
+          message: 'Foo commit'
       - run: |
           git tag foo1
           git push origin foo1
