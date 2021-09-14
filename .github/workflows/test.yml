@@ -12,8 +12,8 @@ jobs:
       image: ubuntu:latest
     steps:
       - run: |
-        apt-get update -y
-        apt-get install -y python-openssl git
+          apt-get update -y
+          apt-get install -y python-openssl git
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
