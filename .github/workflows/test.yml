@@ -11,13 +11,13 @@ jobs:
     container:
       image: ubuntu:latest
     steps:
+      - run: |
+        apt-get update -y
+        apt-get install -y python-openssl git
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-      - run: |
-          apt-get update -y
-          apt-get install -y python-openssl git
       - run: |
           python --version
           python -m pip install requests
