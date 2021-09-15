@@ -17,7 +17,9 @@ jobs:
       - name: Substitution test
         run: |
           body=$(echo ${{ steps.foo.outputs.foo }})
+          echo body = $body
           body="${body//'%'/'%25'}"
+          echo body = $body
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
           echo ::set-output name=body::$body
