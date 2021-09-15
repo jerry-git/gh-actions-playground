@@ -15,6 +15,7 @@ jobs:
         id: foo
         run: echo ::set-output name=foo::foo
       - name: Substitution test
+        shell: bash
         run: |
           body=$(echo ${{ steps.foo.outputs.foo }})
           echo body = $body
