@@ -1,3 +1,5 @@
+name: Deploy
+
 on:
   workflow_run:
     branches: [master]
@@ -10,4 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - run: |
-          echo "Deploying! Triggering workflow was ${{ github.event.workflow_run.conclusion }}"
+            echo "Deploying!"
+            echo ${{ github.event.workflow_run.conclusion }}
