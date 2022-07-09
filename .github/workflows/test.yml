@@ -5,6 +5,13 @@ on:
   push:
     branches:
       - '*'
+  workflow_dispatch:
+    inputs:
+      do-it:
+        description: 'shall we do it'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -20,3 +27,22 @@ jobs:
           python-version: '3.10'
       - run: pip install pytest
       - run: pytest -k ${{ matrix.k }}
+
+  after:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - run: echo woop woop
+
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: echo ${{ inputs.do-it }}
+      - name: tag
+        env:
+          TAG: gha-ci-${{ github.run_number }}-${{ github.run_attempt }}
+        run: git tag "$TAG" && git push origin "$TAG"
+
+
