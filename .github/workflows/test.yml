@@ -20,3 +20,10 @@ jobs:
           python-version: '3.10'
       - run: pip install pytest
       - run: pytest -k ${{ matrix.k }}
+
+  after:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      run: echo woop woop
+
