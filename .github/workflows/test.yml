@@ -27,3 +27,12 @@ jobs:
     steps:
       - run: echo woop woop
 
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: tag
+        env:
+          TAG: gha-ci-${{ github.run_number }}-${{ github.run_attempt }}
+        run: git tag "$TAG" && git push origin "$TAG"
+
+
