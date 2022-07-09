@@ -35,7 +35,7 @@ jobs:
 
   tag:
     runs-on: ubuntu-latest
-    if: inputs.do-it
+    if: inputs.do-it || github.ref == 'refs/heads/master'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
