@@ -11,7 +11,7 @@ on:
         required: false
         type: boolean
         default: false
-      skip-test:
+      skip_test:
         description: 'skip tests'
         required: false
         type: boolean
@@ -20,7 +20,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: inputs.skip-tests != true
+    if: "${{ github.event.inputs.skip_tests != 'true' }}"
     strategy:
       fail-fast: false
       matrix:
