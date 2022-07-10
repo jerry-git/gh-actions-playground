@@ -31,7 +31,8 @@ jobs:
         with:
           python-version: '3.10'
       - run: pip install pytest
-      - run: pytest -k ${{ matrix.k }}
+      - run: pytest -k ${{ matrix.k }}'
+      - run: sleep 60
 
   after:
     runs-on: ubuntu-latest
