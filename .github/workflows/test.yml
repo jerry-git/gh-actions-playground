@@ -20,7 +20,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: "${{ github.event.inputs.skip_tests != 'true' }}"
+    if: inputs.skip_tests
     strategy:
       fail-fast: false
       matrix:
