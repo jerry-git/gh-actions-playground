@@ -20,7 +20,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: inputs.skip_tests
+    if: inputs.skip_test != true
     strategy:
       fail-fast: false
       matrix:
