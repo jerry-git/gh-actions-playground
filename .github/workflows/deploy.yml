@@ -17,8 +17,9 @@ jobs:
     steps:
         - run: |
             echo "Deploying! ${{ github.sha }}"
+            echo "SHA ${GITHUB_SHA}"
             echo ${{ github.event.workflow_run.conclusion }}
-            sleep 200
+            sleep 10
 
   after:
     runs-on: ubuntu-latest
