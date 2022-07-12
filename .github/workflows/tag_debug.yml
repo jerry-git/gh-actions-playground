@@ -13,6 +13,6 @@ jobs:
         with:
           ref: 6818cf3af942dd3ec46451b89e844481e88589d3
       - name: tag
-          env:
-            TAG: jerry-debug-tag-${{ github.run_number }}-${{ github.run_attempt }}
-          run: git tag "$TAG" && git push origin "$TAG"
+        env:
+          TAG: jerry-debug-tag-${{ github.run_number }}-${{ github.run_attempt }}
+        run: git tag "$TAG" && git push origin "$TAG"
