@@ -28,8 +28,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Tag
         env:
           TAG: deployable-image-${{ github.run_number }}-${{ github.run_attempt }}
-        run: git tag "$TAG" ${{ github.event.workflow_run.head_sha }} && git push origin "$TAG"
+        run: git tag "$TAG" && git push origin "$TAG"
 
