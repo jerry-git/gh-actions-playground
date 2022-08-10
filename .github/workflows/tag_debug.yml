@@ -7,7 +7,7 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     permissions:
-      workflow: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2
