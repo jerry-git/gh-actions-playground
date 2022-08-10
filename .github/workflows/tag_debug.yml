@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  permissions:
-    workflow: write
   tag:
     runs-on: ubuntu-latest
+    permissions:
+      workflow: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2
