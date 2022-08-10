@@ -3,8 +3,9 @@ name: Tag Debug
 on:
   workflow_dispatch:
 
-
 jobs:
+  permissions:
+    workflow: write
   tag:
     runs-on: ubuntu-latest
     steps:
