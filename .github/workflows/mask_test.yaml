@@ -1,0 +1,17 @@
+name: Mast test
+
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  mask-test:
+    runs-on: ubuntu-latest
+    env:
+      MY_SECRET: FOO BAR
+    steps:
+      - run: echo "secret $MY_SECRET"
+      - run: echo "::add-mask::$MY_SECRET"
+      - run: echo "secret $MY_SECRET"
