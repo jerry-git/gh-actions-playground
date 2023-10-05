@@ -26,4 +26,4 @@ jobs:
           echo "my env var: $MY_ENV_VAR"
           echo "org: $ORG"
       - name: Name 2
-        run: gh repo view $ORG/$REPO
+        run: gh repo create jerry-git/new-repo --private
