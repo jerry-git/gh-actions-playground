@@ -1,0 +1,25 @@
+name: Workflow with some inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      variable:
+        description: "This is choice"
+        required: true
+        default: "foo"
+        type: choice
+        options:
+        - foo
+        - bar-baz
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Name
+        run: |
+          echo "my env var: $MY_ENV_VAR"
+          echo "org: $ORG"
+        env:
+          MY_ENV_VAR: woop/${{ inputs.variable }}/woop
+          ORG: ${{ github.repository_owner }}
