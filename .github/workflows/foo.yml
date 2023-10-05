@@ -19,6 +19,7 @@ jobs:
       MY_ENV_VAR: woop/${{ inputs.variable }}/woop
       ORG: ${{ github.repository_owner }}
       REPO: pytest-split
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Name
         run: |
