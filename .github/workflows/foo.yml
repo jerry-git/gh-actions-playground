@@ -15,11 +15,14 @@ on:
 jobs:
   my-job:
     runs-on: ubuntu-latest
+    env:
+      MY_ENV_VAR: woop/${{ inputs.variable }}/woop
+      ORG: ${{ github.repository_owner }}
+      REPO: pytest-split
     steps:
       - name: Name
         run: |
           echo "my env var: $MY_ENV_VAR"
           echo "org: $ORG"
-        env:
-          MY_ENV_VAR: woop/${{ inputs.variable }}/woop
-          ORG: ${{ github.repository_owner }}
+      - name: Name 2
+        run: gh repo view $ORG/$REPO
