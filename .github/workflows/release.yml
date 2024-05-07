@@ -9,5 +9,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        run: echo "Deploying"
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+           fetch-tags: true
+      - name: Check deployability
+        shell: bash
+        run: |
+          if ! [[ $(git tag --points-at "$GITHUB_SHA" | grep production-deployable) ]]; then
+            echo "OOPS"
+            exit 1
+          fi

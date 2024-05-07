@@ -67,6 +67,7 @@ jobs:
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$changelog"
+
       - name: Create draft release
         id: draft_release
         uses: actions/create-release@v1
@@ -79,17 +80,21 @@ jobs:
             ${{ steps.changelog.outputs.changelog }}
           draft: true
           prerelease: false
-      - name: Send slack notification
-        uses: rtCamp/action-slack-notify@v2.1.0
+      - name: push deployable tag
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: integration_tests
-          SLACK_ICON_EMOJI: ':ship:'
-          MSG_MINIMAL: true
-          SLACK_FOOTER:
-          SLACK_MESSAGE: |
-            <${{ steps.draft_release.outputs.html_url }}|Draft release>
-
-            ${{ steps.changelog.outputs.changelog }}
-          SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
-          SLACK_USERNAME: release-bot
+          TAG: production-deployable-${{ github.run_number }}-${{ github.run_attempt }}
+        run: git tag "$TAG" && git push origin "$TAG"
+#      - name: Send slack notification
+#        uses: rtCamp/action-slack-notify@v2.1.0
+#        env:
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#          SLACK_CHANNEL: integration_tests
+#          SLACK_ICON_EMOJI: ':ship:'
+#          MSG_MINIMAL: true
+#          SLACK_FOOTER:
+#          SLACK_MESSAGE: |
+#            <${{ steps.draft_release.outputs.html_url }}|Draft release>
+#
+#            ${{ steps.changelog.outputs.changelog }}
+#          SLACK_TITLE: New Production release (${{ steps.tags.outputs.current_tag }}) incoming !
+#          SLACK_USERNAME: release-bot
