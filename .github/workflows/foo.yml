@@ -3,27 +3,20 @@ name: Workflow with some inputs
 on:
   workflow_dispatch:
     inputs:
-      variable:
-        description: "This is choice"
+      repo_name:
+        description: "gimme repo name"
         required: true
-        default: "foo"
-        type: choice
-        options:
-        - foo
-        - bar-baz
+
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
-    env:
-      MY_ENV_VAR: woop/${{ inputs.variable }}/woop
-      ORG: ${{ github.repository_owner }}
-      REPO: pytest-split
-      GH_TOKEN: ${{ github.token }}
+
     steps:
-      - name: Name
+      - name: Parse
         run: |
-          echo "my env var: $MY_ENV_VAR"
-          echo "org: $ORG"
-      - name: Name 2
-        run: gh repo create jerry-git/new-repo --private
+          REPO_NAME=$(basename "${{ inputs.repo_name }}")
+          echo "REPO_NAME=$REPO_NAME" >> "$GITHUB_ENV"
+      - name: Print
+        runt: |
+          echo "Repo name: $REPO_NAME"
